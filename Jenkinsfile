@@ -28,3 +28,15 @@ node {
         sh "docker push tenkster/mesos-pipeline:${gitCommit()}"
     }
 }
+
+ // Deploy
+    stage 'Deploy'
+
+    marathon(
+        url: 'http://marathon.mesos:8080',
+        forceUpdate: false,
+        credentialsId: 'dcos-token',
+        filename: 'marathon.json',
+        appid: 'nginx-pipeline-test',
+        docker: "tenkster/mesos-pipeline:${gitCommit()}".toString()
+    )
