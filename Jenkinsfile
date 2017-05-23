@@ -27,7 +27,6 @@ node {
         sh "docker login -u '${env.DOCKERHUB_USERNAME}' -p '${env.DOCKERHUB_PASSWORD}' -e hnk.reder@gmail.com"
         sh "docker push tenkster/mesos-pipeline:${gitCommit()}"
     }
-}
 
  // Deploy
     stage 'Deploy'
@@ -40,3 +39,6 @@ node {
         appid: 'nginx-pipeline-test',
         docker: "tenkster/mesos-pipeline:${gitCommit()}".toString()
     )
+}
+
+
